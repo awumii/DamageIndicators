@@ -1,0 +1,7 @@
+name: DamageIndicators
+version: ${version}
+main: me.xneox.indicators.DamageIndicatorsPlugin
+api-version: 1.17
+author: neox
+description: A simple Paper plugin that displays holograms when an entity gets damaged or regains health.
+website: https://github.com/xxneox/DamageIndicators
