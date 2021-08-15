@@ -1,5 +1,7 @@
 package me.xneox.indicators.config;
 
+import java.util.EnumSet;
+import org.bukkit.entity.EntityType;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
@@ -31,6 +33,9 @@ public class PluginConfiguration {
   @Comment("How much the hologram shoud move upwards/downwards every TICK?")
   private double moveAmount = 0.04;
 
+  @Comment("Entities that will not display a hologram.")
+  private EnumSet<EntityType> blacklistedEntities = EnumSet.of(EntityType.DROPPED_ITEM);
+
   public String damageHologram() {
     return this.damageHologram;
   }
@@ -61,5 +66,9 @@ public class PluginConfiguration {
 
   public double moveAmount() {
     return this.moveAmount;
+  }
+
+  public EnumSet<EntityType> blacklistedEntities() {
+    return this.blacklistedEntities;
   }
 }
