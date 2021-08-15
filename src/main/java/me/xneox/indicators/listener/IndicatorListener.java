@@ -1,5 +1,6 @@
 package me.xneox.indicators.listener;
 
+import com.archyx.aureliumskills.api.event.ManaRegenerateEvent;
 import java.text.DecimalFormat;
 import me.xneox.indicators.DamageIndicatorsPlugin;
 import me.xneox.indicators.util.ChatUtils;
@@ -13,11 +14,11 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class DamageListener implements Listener {
+public class IndicatorListener implements Listener {
   private final DamageIndicatorsPlugin plugin;
   private final DecimalFormat decimalFormat;
 
-  public DamageListener(DamageIndicatorsPlugin plugin) {
+  public IndicatorListener(DamageIndicatorsPlugin plugin) {
     this.plugin = plugin;
     this.decimalFormat = new DecimalFormat(plugin.config().damageFormat());
   }
@@ -30,6 +31,11 @@ public class DamageListener implements Listener {
   @EventHandler(priority = EventPriority.HIGHEST)
   public void onEntityHeal(EntityRegainHealthEvent event) {
     this.createHologram(event.getEntity(), this.plugin.config().healHologram(), event.getAmount());
+  }
+
+  @EventHandler
+  public void onManaRegen(ManaRegenerateEvent event) {
+    this.createHologram(event.getPlayer(), this.plugin.config().manaHologram(), event.getAmount());
   }
 
   private void createHologram(@NotNull Entity entity, @NotNull String text, double damage) {

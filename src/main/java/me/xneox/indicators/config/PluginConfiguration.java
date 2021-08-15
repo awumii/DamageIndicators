@@ -9,10 +9,13 @@ import org.spongepowered.configurate.objectmapping.meta.Comment;
 public class PluginConfiguration {
 
   @Comment("Hologram displayed when an entity gets damaged.")
-  private String damageHologram = "&#f94144-%amount%";
+  private String damageHologram = "&#f94144-%amount%❤";
 
-  @Comment("Hologram displayed whe an entity regains health.")
-  private String healHologram = "&#90be6d+%amount%";
+  @Comment("Hologram displayed when an entity regains health.")
+  private String healHologram = "&#90be6d+%amount%❤";
+
+  @Comment("Hologram displayed a player regenerates mana.\n(!) Requires AureliumSkills")
+  private String manaHologram = "&#480ca8+%amount%❂";
 
   @Comment("The format of the displayed damage amount.")
   private String damageFormat = "#.##";
@@ -21,7 +24,7 @@ public class PluginConfiguration {
   private double scale = 1;
 
   @Comment("Time in milliseconds how long the hologram will be displayed.")
-  private int duration = 1500;
+  private int duration = 1000;
 
   @Comment("The Y distance between the entity and the hologram.")
   private double spawnDistance = 0.8;
@@ -42,6 +45,10 @@ public class PluginConfiguration {
 
   public String healHologram() {
     return this.healHologram;
+  }
+
+  public String manaHologram() {
+    return this.manaHologram;
   }
 
   public String damageFormat() {

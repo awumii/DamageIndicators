@@ -11,10 +11,15 @@ repositories {
     maven {
         url = uri("https://papermc.io/repo/repository/maven-public/")
     }
+    maven {
+        url = uri("https://jitpack.io")
+    }
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
+    compileOnly("com.github.Archy-X:AureliumSkills:Beta1.2.0")
+
     implementation("org.spongepowered:configurate-hocon:4.1.1")
 }
 

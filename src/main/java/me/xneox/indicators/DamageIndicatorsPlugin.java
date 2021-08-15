@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import me.xneox.indicators.config.PluginConfiguration;
-import me.xneox.indicators.listener.DamageListener;
+import me.xneox.indicators.listener.IndicatorListener;
 import me.xneox.indicators.task.ArmorStandTask;
 import me.xneox.indicators.util.ConfigurationLoader;
 import org.bukkit.Bukkit;
@@ -28,7 +28,7 @@ public final class DamageIndicatorsPlugin extends JavaPlugin {
     }
 
     Bukkit.getScheduler().runTaskTimer(this, new ArmorStandTask(this), 0L, 1L);
-    Bukkit.getPluginManager().registerEvents(new DamageListener(this), this);
+    Bukkit.getPluginManager().registerEvents(new IndicatorListener(this), this);
   }
 
   public PluginConfiguration config() {
