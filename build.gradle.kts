@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "me.xneox"
-version = "1.0.0"
+version = "1.1.0"
 
 repositories {
     mavenCentral()
@@ -21,6 +21,7 @@ dependencies {
     compileOnly("com.github.Archy-X:AureliumSkills:Beta1.2.0")
 
     implementation("org.spongepowered:configurate-hocon:4.1.1")
+    implementation("org.bstats:bstats-bukkit:2.2.1")
 }
 
 tasks {
@@ -39,5 +40,6 @@ tasks {
         relocate("org.spongepowered.configurate", "me.xneox.indicators.libs.configurate")
         relocate("com.typesafe.config", "me.xneox.indicators.libs.config")
         relocate("io.leangen.geantyref", "me.xneox.indicators.libs.geantyref")
+        relocate("org.bstats", "me.xneox.indicators.libs.bstats")
     }
 }

@@ -25,6 +25,9 @@ public class IndicatorListener implements Listener {
 
   @EventHandler(priority = EventPriority.HIGHEST)
   public void onEntityDamage(EntityDamageEvent event) {
+    if (event.isCancelled()) {
+      return;
+    }
     this.createHologram(event.getEntity(), this.plugin.config().damageHologram(), event.getFinalDamage());
   }
 
