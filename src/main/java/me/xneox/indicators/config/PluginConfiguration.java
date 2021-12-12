@@ -24,9 +24,6 @@ public class PluginConfiguration {
   @Comment("Time in milliseconds how long the hologram will be displayed.")
   private int duration = 1000;
 
-  @Comment("The Y distance between the entity and the hologram.")
-  private double spawnDistance = 0.8;
-
   @Comment("In which direction the hologram should move during it's display time?\n"
       + "UP, DOWN, or STILL if you don't want it to move.")
   private MoveDirection moveDirection = MoveDirection.DOWN;
@@ -103,10 +100,6 @@ public class PluginConfiguration {
 
   public int duration() {
     return this.duration;
-  }
-
-  public double spawnDistance() {
-    return this.spawnDistance;
   }
 
   public MoveDirection moveDirection() {
