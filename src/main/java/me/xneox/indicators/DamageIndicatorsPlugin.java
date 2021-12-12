@@ -3,16 +3,14 @@ package me.xneox.indicators;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import me.xneox.commons.config.ConfigurationLoader;
+import me.xneox.commons.libs.libs.configurate.ConfigurateException;
+import me.xneox.commons.libs.libs.configurate.hocon.HoconConfigurationLoader;
 import me.xneox.indicators.config.PluginConfiguration;
-import me.xneox.indicators.listener.IndicatorListener;
-import me.xneox.indicators.task.ArmorStandTask;
-import me.xneox.indicators.util.ConfigurationLoader;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.spongepowered.configurate.ConfigurateException;
+import org.jetbrains.annotations.NotNull;
 
 public final class DamageIndicatorsPlugin extends JavaPlugin {
   private final Map<ArmorStand, Long> activeArmorStands = new HashMap<>();
@@ -20,30 +18,42 @@ public final class DamageIndicatorsPlugin extends JavaPlugin {
 
   @Override
   public void onEnable() {
-    File configFile = new File(this.getDataFolder(), "config.conf");
-    try {
-      this.config = new ConfigurationLoader<>(configFile, PluginConfiguration.class)
-          .load();
-    } catch (ConfigurateException exception) {
-      this.getLog4JLogger().error("Could not load the plugin configuration: ", exception);
-    }
+    this.loadConfig();
 
     Bukkit.getScheduler().runTaskTimer(this, new ArmorStandTask(this), 0L, 1L);
     Bukkit.getPluginManager().registerEvents(new IndicatorListener(this), this);
 
-    new Metrics(this, 12458);
+    //noinspection ConstantConditions
+    this.getCommand("damageindicators").setExecutor(new DamageIndicatorsCommand(this));
   }
 
+  public void loadConfig() {
+    var loader = HoconConfigurationLoader.builder()
+        .file(new File(this.getDataFolder(), "config.conf"))
+        .build();
+
+    try {
+      this.config = new ConfigurationLoader<>(PluginConfiguration.class, loader)
+          .load();
+    } catch (ConfigurateException exception) {
+      this.getLog4JLogger().error("Could not load the plugin configuration: ", exception);
+    }
+  }
+
+  @NotNull
   public PluginConfiguration config() {
     return this.config;
   }
 
+  @NotNull
   public Map<ArmorStand, Long> activeArmorStands() {
     return this.activeArmorStands;
   }
 
   @Override
   public void onDisable() {
-    this.activeArmorStands.keySet().forEach(Entity::remove);
+    for (var armorStand : this.activeArmorStands.keySet()) {
+      armorStand.remove();
+    }
   }
 }

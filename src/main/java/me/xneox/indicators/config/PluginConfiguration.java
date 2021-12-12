@@ -1,10 +1,11 @@
 package me.xneox.indicators.config;
 
 import java.util.EnumSet;
+import me.xneox.commons.libs.libs.configurate.objectmapping.ConfigSerializable;
+import me.xneox.commons.libs.libs.configurate.objectmapping.meta.Comment;
 import org.bukkit.entity.EntityType;
-import org.spongepowered.configurate.objectmapping.ConfigSerializable;
-import org.spongepowered.configurate.objectmapping.meta.Comment;
 
+@SuppressWarnings("ALL") // make intellij shut up about using final fields that would break the config loader.
 @ConfigSerializable
 public class PluginConfiguration {
 
@@ -14,13 +15,10 @@ public class PluginConfiguration {
   @Comment("Hologram displayed when an entity regains health.")
   private String healHologram = "&#90be6d+%amount%❤";
 
-  @Comment("Hologram displayed a player regenerates mana.\n(!) Requires AureliumSkills")
-  private String manaHologram = "&#480ca8+%amount%❂";
-
   @Comment("The format of the displayed damage amount.")
   private String damageFormat = "#.##";
 
-  @Comment("Amount to scale the displayed damage.")
+  @Comment("Amount to multiply the displayed damage amount.")
   private double scale = 1;
 
   @Comment("Time in milliseconds how long the hologram will be displayed.")
@@ -45,10 +43,6 @@ public class PluginConfiguration {
 
   public String healHologram() {
     return this.healHologram;
-  }
-
-  public String manaHologram() {
-    return this.manaHologram;
   }
 
   public String damageFormat() {

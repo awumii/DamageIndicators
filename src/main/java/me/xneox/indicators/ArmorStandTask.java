@@ -1,26 +1,18 @@
-package me.xneox.indicators.task;
+package me.xneox.indicators;
 
-import java.util.Iterator;
-import java.util.Map.Entry;
-import me.xneox.indicators.DamageIndicatorsPlugin;
 import me.xneox.indicators.config.MoveDirection;
-import org.bukkit.entity.ArmorStand;
+import org.jetbrains.annotations.NotNull;
 
-public class ArmorStandTask implements Runnable {
-  private final DamageIndicatorsPlugin plugin;
-
-  public ArmorStandTask(DamageIndicatorsPlugin plugin) {
-    this.plugin = plugin;
-  }
+public record ArmorStandTask(@NotNull DamageIndicatorsPlugin plugin) implements Runnable {
 
   @Override
   public void run() {
     // This needs to be iterator since we remove the values (keys actually) of the map we iterate over.
-    Iterator<Entry<ArmorStand, Long>> iterator = this.plugin.activeArmorStands().entrySet().iterator();
+    var iterator = this.plugin.activeArmorStands().entrySet().iterator();
     while (iterator.hasNext()) {
-      Entry<ArmorStand, Long> entry = iterator.next();
-      ArmorStand armorStand = entry.getKey();
-      Long spawnTime = entry.getValue();
+      var entry = iterator.next();
+      var armorStand = entry.getKey();
+      var spawnTime = entry.getValue();
 
       // Removing the ArmorStand if expired.
       if (System.currentTimeMillis() - spawnTime > this.plugin.config().duration()) {

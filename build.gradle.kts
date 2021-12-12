@@ -1,27 +1,29 @@
 plugins {
-    id("java")
-    id("com.github.johnrengelman.shadow") version "7.0.0"
+    java
+    id("com.github.johnrengelman.shadow") version "7.1.0"
 }
 
 group = "me.xneox"
-version = "1.1.0"
+version = "1.2.0"
 
-repositories {
-    mavenCentral()
-    maven {
-        url = uri("https://papermc.io/repo/repository/maven-public/")
-    }
-    maven {
-        url = uri("https://jitpack.io")
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
-dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
-    compileOnly("com.github.Archy-X:AureliumSkills:Beta1.2.0")
 
-    implementation("org.spongepowered:configurate-hocon:4.1.1")
-    implementation("org.bstats:bstats-bukkit:2.2.1")
+repositories {
+    mavenCentral()
+    maven("https://papermc.io/repo/repository/maven-public/")
+    maven("https://jitpack.io")
+}
+
+dependencies {
+    compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
+
+    implementation("com.github.xxneox.commons:commons-core:1.0.1")
+    implementation("com.github.xxneox.commons:commons-config:1.0.1")
 }
 
 tasks {
@@ -37,9 +39,6 @@ tasks {
 
     shadowJar {
         minimize()
-        relocate("org.spongepowered.configurate", "me.xneox.indicators.libs.configurate")
-        relocate("com.typesafe.config", "me.xneox.indicators.libs.config")
-        relocate("io.leangen.geantyref", "me.xneox.indicators.libs.geantyref")
-        relocate("org.bstats", "me.xneox.indicators.libs.bstats")
+        relocate("me.xneox.commons", "me.xneox.indicators.libs.commons")
     }
 }

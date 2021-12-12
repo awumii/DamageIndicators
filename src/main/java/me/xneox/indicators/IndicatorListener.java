@@ -1,10 +1,7 @@
-package me.xneox.indicators.listener;
+package me.xneox.indicators;
 
-import com.archyx.aureliumskills.api.event.ManaRegenerateEvent;
 import java.text.DecimalFormat;
-import me.xneox.indicators.DamageIndicatorsPlugin;
-import me.xneox.indicators.util.ChatUtils;
-import org.bukkit.Location;
+import me.xneox.commons.paper.TextUtils;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
@@ -36,18 +33,13 @@ public class IndicatorListener implements Listener {
     this.createHologram(event.getEntity(), this.plugin.config().healHologram(), event.getAmount());
   }
 
-  @EventHandler
-  public void onManaRegen(ManaRegenerateEvent event) {
-    this.createHologram(event.getPlayer(), this.plugin.config().manaHologram(), event.getAmount());
-  }
-
   private void createHologram(@NotNull Entity entity, @NotNull String text, double damage) {
     if (this.plugin.config().blacklistedEntities().contains(entity.getType())) {
       return;
     }
 
-    String formattedDamage = this.decimalFormat.format(damage * this.plugin.config().scale());
-    Location location = entity.getLocation();
+    var formattedDamage = this.decimalFormat.format(damage * this.plugin.config().scale());
+    var location = entity.getLocation();
 
     // Thanks to Paper, this function will run before the ArmorStand is added to the world.
     // This also fixes client rendering the ArmorStand for a fraction of second.
@@ -57,7 +49,7 @@ public class IndicatorListener implements Listener {
       armorStand.setMarker(true);
       armorStand.setInvulnerable(true);
 
-      armorStand.customName(ChatUtils.color(text.replace("%amount%", formattedDamage)));
+      armorStand.customName(TextUtils.color(text.replace("%amount%", formattedDamage)));
       armorStand.setCustomNameVisible(true);
 
       this.plugin.activeArmorStands().put(armorStand, System.currentTimeMillis());
