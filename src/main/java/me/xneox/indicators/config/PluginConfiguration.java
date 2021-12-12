@@ -37,6 +37,54 @@ public class PluginConfiguration {
   @Comment("Entities that will not display a hologram.")
   private EnumSet<EntityType> blacklistedEntities = EnumSet.of(EntityType.DROPPED_ITEM);
 
+  @Comment("Configure random offsets to spawn the hologram around an entity.")
+  private SpawnOffsets spawnOffsets = new SpawnOffsets();
+
+  @ConfigSerializable
+  public static class SpawnOffsets {
+    @Comment("The minimum Y distance between the entity and the hologram.")
+    private double yMin = 0.6;
+
+    @Comment("The maximum Y distance between the entity and the hologram.")
+    private double yMax = 1.2;
+
+    @Comment("The minimum X distance between the entity and the hologram.")
+    private double xMin = 0.0;
+
+    @Comment("The maximum X distance between the entity and the hologram.")
+    private double xMax = 1.0;
+
+    @Comment("The minimum Z distance between the entity and the hologram.")
+    private double zMin = 0.0;
+
+    @Comment("The maximum Z distance between the entity and the hologram.")
+    private double zMax = 1.0;
+
+    public double yMin() {
+      return this.yMin;
+    }
+
+    public double yMax() {
+      return this.yMax;
+    }
+
+    public double xMin() {
+      return this.xMin;
+    }
+
+    public double xMax() {
+      return this.xMax;
+    }
+
+    public double zMin() {
+      return this.zMin;
+    }
+
+    public double zMax() {
+      return this.zMax;
+    }
+  }
+
   public String damageHologram() {
     return this.damageHologram;
   }
@@ -71,5 +119,9 @@ public class PluginConfiguration {
 
   public EnumSet<EntityType> blacklistedEntities() {
     return this.blacklistedEntities;
+  }
+
+  public SpawnOffsets spawnOffsets() {
+    return this.spawnOffsets;
   }
 }

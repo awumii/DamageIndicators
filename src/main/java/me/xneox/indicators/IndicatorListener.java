@@ -41,9 +41,15 @@ public class IndicatorListener implements Listener {
     var formattedDamage = this.decimalFormat.format(damage * this.plugin.config().scale());
     var location = entity.getLocation();
 
+    // Randomize hologram spawn offsets.
+    var offsets = this.plugin.config().spawnOffsets();
+    var x = rand(offsets.xMin(), offsets.xMax());
+    var y = rand(offsets.yMin(), offsets.yMax());
+    var z = rand(offsets.zMin(), offsets.zMax());
+
     // Thanks to Paper, this function will run before the ArmorStand is added to the world.
     // This also fixes client rendering the ArmorStand for a fraction of second.
-    location.getWorld().spawn(location.add(0, this.plugin.config().spawnDistance(), 0), ArmorStand.class, armorStand -> {
+    location.getWorld().spawn(location.add(x, y, z), ArmorStand.class, armorStand -> {
       armorStand.setVisible(false);
       armorStand.setGravity(false);
       armorStand.setMarker(true);
@@ -54,5 +60,10 @@ public class IndicatorListener implements Listener {
 
       this.plugin.activeArmorStands().put(armorStand, System.currentTimeMillis());
     });
+  }
+
+  // todo move to commons
+  private double rand(double min, double max) {
+    return min + Math.random() * (max - min);
   }
 }

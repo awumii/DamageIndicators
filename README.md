@@ -8,6 +8,7 @@ Perfect for RPG servers!
 * Display a hologram when an entity gets damaged or regains health.
 * Configure the displayed damage format and scale the health value.
 * Configure if hologram should stay still, or slowly move upwards/downwards (configurable speed, display time, and spawn distance).
+* Configure random hologram spawn offset.
 * Blacklist certain entity types from displaying a hologram.
 * HEX color support.
 * Very lightweight!
