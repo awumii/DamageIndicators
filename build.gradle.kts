@@ -1,17 +1,14 @@
 plugins {
     java
-    id("com.github.johnrengelman.shadow") version "7.1.0"
+    id("com.github.johnrengelman.shadow") version "8.1.0"
 }
 
-group = "me.xneox"
-version = "1.3.0"
+group = "com.github.awumii"
+version = "2.0.0"
 
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
-
 
 repositories {
     mavenCentral()
@@ -21,6 +18,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT")
+    compileOnly("com.github.decentsoftware-eu:decentholograms:2.8.3")
 
     implementation("com.github.xxneox.commons:commons-core:1.0.1")
     implementation("com.github.xxneox.commons:commons-config:1.0.1")
@@ -28,7 +26,7 @@ dependencies {
 
 tasks {
     processResources {
-        filesMatching("plugin.yml") {
+        filesMatching("paper-plugin.yml") {
             expand("version" to project.version)
         }
     }

@@ -1,0 +1,11 @@
+name: DamageIndicators
+version: '${version}'
+main: com.github.awumii.indicators.DamageIndicatorsPlugin
+api-version: '1.20'
+author: 'awumii'
+website: 'https://github.com/awumii/DamageIndicators'
+
+dependencies:
+  server:
+    DecentHolograms:
+      required: true

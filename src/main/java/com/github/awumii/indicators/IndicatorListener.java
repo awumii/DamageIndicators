@@ -1,8 +1,9 @@
-package me.xneox.indicators;
+package com.github.awumii.indicators;
 
-import java.text.DecimalFormat;
-import me.xneox.commons.paper.TextUtils;
-import org.bukkit.entity.ArmorStand;
+import java.util.List;
+
+import eu.decentsoftware.holograms.api.DHAPI;
+import org.apache.commons.lang3.RandomUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,11 +14,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class IndicatorListener implements Listener {
   private final DamageIndicatorsPlugin plugin;
-  private final DecimalFormat decimalFormat;
 
   public IndicatorListener(DamageIndicatorsPlugin plugin) {
     this.plugin = plugin;
-    this.decimalFormat = new DecimalFormat(plugin.config().damageFormat());
   }
 
   @EventHandler(priority = EventPriority.HIGHEST)
@@ -38,7 +37,7 @@ public class IndicatorListener implements Listener {
       return;
     }
 
-    var formattedDamage = this.decimalFormat.format(damage * this.plugin.config().scale());
+    var formattedDamage = this.plugin.getFormat().format(damage * this.plugin.config().scale());
     var location = entity.getLocation();
 
     // Randomize hologram spawn offsets.
@@ -47,19 +46,11 @@ public class IndicatorListener implements Listener {
     var y = rand(offsets.yMin(), offsets.yMax());
     var z = rand(offsets.zMin(), offsets.zMax());
 
-    // Thanks to Paper, this function will run before the ArmorStand is added to the world.
-    // This also fixes client rendering the ArmorStand for a fraction of second.
-    location.getWorld().spawn(location.add(x, y, z), ArmorStand.class, armorStand -> {
-      armorStand.setVisible(false);
-      armorStand.setGravity(false);
-      armorStand.setMarker(true);
-      armorStand.setInvulnerable(true);
+    var name = "DI_" + RandomUtils.nextInt();
+    this.plugin.getSLF4JLogger().info(name);
 
-      armorStand.customName(TextUtils.color(text.replace("%amount%", formattedDamage)));
-      armorStand.setCustomNameVisible(true);
-
-      this.plugin.activeArmorStands().put(armorStand, System.currentTimeMillis());
-    });
+    DHAPI.createHologram(name, location.add(x, y, z), List.of(text.replace("%amount%", formattedDamage)));
+    this.plugin.getActiveHolograms().put(name, System.currentTimeMillis());
   }
 
   // todo move to commons

@@ -1,4 +1,4 @@
-package me.xneox.indicators.config;
+package com.github.awumii.indicators.config;
 
 import java.util.EnumSet;
 import me.xneox.commons.libs.libs.configurate.objectmapping.ConfigSerializable;
