@@ -47,8 +47,7 @@ public class IndicatorListener implements Listener {
     var z = rand(offsets.zMin(), offsets.zMax());
 
     var name = "DI_" + RandomUtils.nextInt();
-    this.plugin.getSLF4JLogger().info(name);
-
+    
     DHAPI.createHologram(name, location.add(x, y, z), List.of(text.replace("%amount%", formattedDamage)));
     this.plugin.getActiveHolograms().put(name, System.currentTimeMillis());
   }
