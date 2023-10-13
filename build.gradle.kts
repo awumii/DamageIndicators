@@ -18,7 +18,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT")
-    compileOnly("com.github.decentsoftware-eu:decentholograms:2.8.3")
+    compileOnly("com.github.decentsoftware-eu:decentholograms:2.8.4")
 
     implementation("com.github.xxneox.commons:commons-core:1.0.1")
     implementation("com.github.xxneox.commons:commons-config:1.0.1")
